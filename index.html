@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sandbox</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+    </div>
+    <button type="button" id="clearButton" onclick="removeShading()">Erase</button><br>
+    <input type="checkbox" id="editPixelToggle" name="editPixelToggle" value="edit" onclick="editPixelToggle()">
+    <label for="editPixelToggle">Enable Manual Pixel Shading</label><br>
+    <label for="editPixelToggle">Shading Pattern Selection: </label>
+    <select id="patternSelector" onchange="patternSelector()">
+        <option value="None">None</option>
+        <option value="Pattern 1">Pattern 1</option>
+        <option value="Pattern 2">Pattern 2</option>
+    </select>
+    <script src="index.js"></script>
+</body>
+</html>
