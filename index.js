@@ -50,7 +50,12 @@ function shadePattern1() {
 
 function shadePattern2() {
     removeShading();
-    let pattern2Pixels = [10,16];
+    let pattern2Pixels = [];
+    for (let i = 10, j = 19; i < 17; i++, j+=9) {
+        pattern2Pixels.push(i);
+        pattern2Pixels.push(j);
+        pattern2Pixels.push(j+6);
+    }
     let pattern2Shaded = [];
     pattern2Pixels.forEach(function(i){
         pattern2Shaded.push(pixelElementArray[i]);
