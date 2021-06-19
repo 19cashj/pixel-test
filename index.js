@@ -36,7 +36,7 @@ function editPixelToggle() {
 }
 
 function removeShading() {
-    for (let i = 0; i < 99; i+=2) {
+    for (let i = 0; i < 99; i+=1) {
         pixelElementArray[i].classList.remove("shaded");
     }
 }
