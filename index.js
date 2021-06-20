@@ -1,8 +1,7 @@
 let pixelStringArray = [];
 let pixelElementArray = [];
 let container = document.querySelector(".container");
-//var pixelAmount = pixelElementArray.length;
-// Global pixel amount not working with the for loops for some reason
+var pixelAmount;
 
 function createPixel(pixelDiv, pixelContainer, i) {
     var pixelDiv = document.createElement("div");
@@ -51,10 +50,11 @@ function shadePattern1() {
 function shadePattern2() {
     removeShading();
     let pattern2Pixels = [];
-    for (let i = 10, j = 19; i < 17; i++, j+=9) {
+    for (let i = 0, j = 9; i <=8; i++, j+=9) {
         pattern2Pixels.push(i);
         pattern2Pixels.push(j);
-        pattern2Pixels.push(j+6);
+        pattern2Pixels.push(j+8);
+        pattern2Pixels.push(i+90);
     }
     let pattern2Shaded = [];
     pattern2Pixels.forEach(function(i){
@@ -65,11 +65,60 @@ function shadePattern2() {
     });
 }
 
-function patternSelector() {
-    var value = document.getElementById("patternSelector").value;
-    switch (value) {
+function shadePattern3() {
+    removeShading();
+    let pattern3Pixels = [];
+    for (let i = 74; i <= 78; i++) {
+        pattern3Pixels.push(i);
+    }
+    pattern3Pixels.push(20,24,64,70);
+    let pattern3Shaded = [];
+    pattern3Pixels.forEach(function(i){
+        pattern3Shaded.push(pixelElementArray[i]);
+    });
+    console.log(pattern3Shaded);
+    pattern3Shaded.forEach(function(i){
+        shadePixel(i);
+    });
+}
+
+function randomizeShading() {
+    removeShading();
+    for (let i = 0; i < 99; i+=1) {
+        let randomPixel = Math.floor(Math.random()*99);
+        shadePixel(pixelElementArray[randomPixel]);
+    }
+}
+
+function savePattern() {
+    let savedPatternArray = [];
+    for (let i = 0; i < 99; i+=1) {
+        if (pixelElementArray[i].classList.contains("shaded")) {
+            savedPatternArray.push(pixelStringArray[i]);
+        }
+    }
+    localStorage.setItem("savedPattern", savedPatternArray);
+    console.log("Saved Pixels: " + savedPatternArray);
+}
+
+function loadPattern() {
+    removeShading();
+    let savedPattern = localStorage.getItem("savedPattern");
+    let pixelStringsRemoved = savedPattern.replaceAll("pixel", "");
+    let savedStringShadedArray = pixelStringsRemoved.split(',');
+    let savedShadedArray = savedStringShadedArray.map(Number);
+    savedShadedArray.forEach(function(i){
+        pixelElementArray.push(savedShadedArray[i]);
+        shadePixel(pixelElementArray[i]);
+    });
+    console.log("Loaded Pixels: " + savedPattern);
+}
+
+function patternSelector(patternValue) {
+    document.getElementById("patternSelector").value = patternValue;
+    switch (patternValue) {
         case "None":
-            removeShading();
+            //removeShading();
             break;
         case "Pattern 1":
             shadePattern1();
@@ -77,9 +126,15 @@ function patternSelector() {
         case "Pattern 2":
             shadePattern2();
             break;
+        case "Pattern 3":
+            shadePattern3();
+            break;
     }
 }
 
 for (let i = 0; i < 99; i++) {
     createPixel("pixel"+i, container, i);
+    pixelAmount+=1;
 }
+
+//Create an animation selector similar to patterns which would play an animation
