@@ -1,7 +1,8 @@
 let pixelStringArray = [];
 let pixelElementArray = [];
 let container = document.querySelector(".container");
-var pixelAmount;
+var pixelAmount; //should really be using this
+var interval = null;
 
 function createPixel(pixelDiv, pixelContainer, i) {
     var pixelDiv = document.createElement("div");
@@ -40,48 +41,6 @@ function removeShading() {
     }
 }
 
-function shadePattern1() {
-    removeShading();
-    for (let i = 0; i < 99; i+=2) {
-        shadePixel(pixelElementArray[i]);
-    }
-}
-
-function shadePattern2() {
-    removeShading();
-    let pattern2Pixels = [];
-    for (let i = 0, j = 9; i <=8; i++, j+=9) {
-        pattern2Pixels.push(i);
-        pattern2Pixels.push(j);
-        pattern2Pixels.push(j+8);
-        pattern2Pixels.push(i+90);
-    }
-    let pattern2Shaded = [];
-    pattern2Pixels.forEach(function(i){
-        pattern2Shaded.push(pixelElementArray[i]);
-    });
-    pattern2Shaded.forEach(function(i){
-        shadePixel(i);
-    });
-}
-
-function shadePattern3() {
-    removeShading();
-    let pattern3Pixels = [];
-    for (let i = 74; i <= 78; i++) {
-        pattern3Pixels.push(i);
-    }
-    pattern3Pixels.push(20,24,64,70);
-    let pattern3Shaded = [];
-    pattern3Pixels.forEach(function(i){
-        pattern3Shaded.push(pixelElementArray[i]);
-    });
-    console.log(pattern3Shaded);
-    pattern3Shaded.forEach(function(i){
-        shadePixel(i);
-    });
-}
-
 function randomizeShading() {
     removeShading();
     for (let i = 0; i < 99; i+=1) {
@@ -114,27 +73,128 @@ function loadPattern() {
     console.log("Loaded Pixels: " + savedPattern);
 }
 
+function stopAnimation() {
+    clearInterval(interval);
+}
+
 function patternSelector(patternValue) {
     document.getElementById("patternSelector").value = patternValue;
+    let patternPixels = [];
+    let patternShaded = [];
+    removeShading();
     switch (patternValue) {
         case "None":
-            //removeShading();
             break;
         case "Pattern 1":
-            shadePattern1();
+            for (let i = 0; i < 99; i+=2) {
+                shadePixel(pixelElementArray[i]);
+            }
             break;
         case "Pattern 2":
-            shadePattern2();
+            for (let i = 0, j = 9; i <=8; i++, j+=9) {
+                patternPixels.push(i);
+                patternPixels.push(j);
+                patternPixels.push(j+8);
+                patternPixels.push(i+90);
+            }
+            patternPixels.forEach(function(i){
+                patternShaded.push(pixelElementArray[i]);
+            });
+            patternShaded.forEach(function(i){
+                shadePixel(i);
+            });
             break;
         case "Pattern 3":
-            shadePattern3();
+            for (let i = 74; i <= 78; i++) {
+                patternPixels.push(i);
+            }
+            patternPixels.push(20,24,64,70);
+            patternPixels.forEach(function(i){
+                patternShaded.push(pixelElementArray[i]);
+            });
+            patternShaded.forEach(function(i){
+                shadePixel(i);
+            });
             break;
     }
 }
 
+function animationSelector(animationValue) {
+    removeShading();
+    document.getElementById("animationSelector").value = animationValue;
+    let frame = 0;
+    let animationStorage = [];
+    let animationShaded = [];
+    switch (animationValue) {
+        case "None":
+            stopAnimation();
+            break;
+        case "Animation 1": 
+            frame = 0;
+            interval = setInterval(function(){
+                if (frame==1) {
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    animationStorage = [];
+                    animationShaded = [];
+                    shadePixel(pixelElementArray[49]);
+                    console.log(frame)
+                }
+                else if (frame==2) {
+                    shadePixel(pixelElementArray[49]);
+                    animationStorage.push(31, 39, 41, 47, 51, 57, 59, 67);
+                    animationStorage.forEach(function(i){
+                        animationShaded.push(pixelElementArray[i]);
+                    });
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    console.log(frame);
+                }
+                else if (frame==3) {
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    animationStorage = [];
+                    animationShaded = [];
+                    animationStorage.push(21, 22, 23, 29, 33, 37, 43, 46, 52, 55, 61, 65, 69, 75, 76, 77);
+                    animationStorage.forEach(function(i){
+                        animationShaded.push(pixelElementArray[i]);
+                    });
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    console.log(frame)
+                }
+                else if (frame==4) {
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    animationStorage = [];
+                    animationShaded = [];
+                    animationStorage.push(12, 13, 14, 20, 24, 28, 34, 36, 44, 45, 53, 54, 62, 64, 70, 74, 78, 84, 85, 86);
+                    animationStorage.forEach(function(i){
+                        animationShaded.push(pixelElementArray[i]);
+                    });
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    console.log(frame)
+                    frame = 0;
+                }
+                frame++;
+            }, 1000);
+            break;
+        case "Animation 2":
+            //
+            break;
+        case "Animation 3":
+            //
+            break;
+    }
+}
 for (let i = 0; i < 99; i++) {
     createPixel("pixel"+i, container, i);
     pixelAmount+=1;
 }
-
-//Create an animation selector similar to patterns which would play an animation
