@@ -23,3 +23,7 @@
     background-color: black;
     border-color: white;
 }
+
+canvas {
+    border: 1px solid black;
+}

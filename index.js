@@ -184,10 +184,61 @@ function animationSelector(animationValue) {
                     frame = 0;
                 }
                 frame++;
-            }, 1000);
+            }, 500);
             break;
         case "Animation 2":
-            //
+            frame = 0;
+            interval = setInterval(function(){
+                if (frame<=8) {
+                    animationStorage = [];
+                    animationShaded = [];
+                    shadePixel(pixelElementArray[frame]);
+                    console.log(frame)
+                }
+                else if (frame==2) {
+                    shadePixel(pixelElementArray[49]);
+                    animationStorage.push(31, 39, 41, 47, 51, 57, 59, 67);
+                    animationStorage.forEach(function(i){
+                        animationShaded.push(pixelElementArray[i]);
+                    });
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    console.log(frame);
+                }
+                else if (frame==3) {
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    animationStorage = [];
+                    animationShaded = [];
+                    animationStorage.push(21, 22, 23, 29, 33, 37, 43, 46, 52, 55, 61, 65, 69, 75, 76, 77);
+                    animationStorage.forEach(function(i){
+                        animationShaded.push(pixelElementArray[i]);
+                    });
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    console.log(frame)
+                }
+                else if (frame==4) {
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    animationStorage = [];
+                    animationShaded = [];
+                    animationStorage.push(12, 13, 14, 20, 24, 28, 34, 36, 44, 45, 53, 54, 62, 64, 70, 74, 78, 84, 85, 86);
+                    animationStorage.forEach(function(i){
+                        animationShaded.push(pixelElementArray[i]);
+                    });
+                    animationShaded.forEach(function(i){
+                        shadePixel(i);
+                    });
+                    console.log(frame)
+                    frame = 0;
+                }
+                frame++;
+            }, 50);
             break;
         case "Animation 3":
             //

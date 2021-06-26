@@ -8,9 +8,8 @@
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <p>This pixel graph utilizes DOM Manipulation.</p><a href="canvas.html"> Go to Canvas version?</a>
-    <div class="container">
-    </div>
+    <p>This pixel graph utilizes Canvas.</p><a href="index.html"> Go to DOM version?</a><br>
+    <canvas id="pixelCanvas"></canvas><br>
     <button type="button" id="clearButton" onclick="removeShading(); patternSelector('None'); animationSelector('None');">Erase</button>
     <button type="button" id="randomizeButton" onclick="patternSelector('None'); animationSelector('None'); randomizeShading();">Randomize</button><br>
     <input type="checkbox" id="editPixelToggle" name="editPixelToggle" value="edit" onclick="editPixelToggle()">
@@ -31,6 +30,6 @@
     <span>Custom Pattern:</span>
     <button type="button" id="saveButton" onclick="savePattern()">Save</button>
     <button type="button" id="loadButton" onclick="patternSelector('None'); animationSelector('None'); loadPattern();">Load</button><br>
-    <script src="index.js"></script>
+    <script src="canvas.js"></script>
 </body>
 </html>
